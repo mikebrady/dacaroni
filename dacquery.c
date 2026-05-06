@@ -55,6 +55,7 @@ snd_error_quiet(__attribute__((unused)) const char *file, __attribute__((unused)
 }
 
 #define MIXER_BUNDLE_SIZE 32
+#define MAX_CHANNELS 32
 
 typedef struct {
   char name[64];
@@ -250,7 +251,7 @@ static snd_pcm_format_t formats_to_check[] = {SND_PCM_FORMAT_S8,
 typedef struct {
   uint32_t rate_set, channel_set;
   uint64_t format_set;
-  char channel_mappings[32][128];
+  char channel_mappings[MAX_CHANNELS][128];
 } configuration_set;
 
 typedef struct {
@@ -357,7 +358,7 @@ static configuration_bundle *get_permissible_configuration_settings(char *interf
     if (ret == 0) {
       // check what numbers of channels the device can provide...
       unsigned int i;
-      for (i = 1; i <= 8; i++) {
+      for (i = 1; i <= MAX_CHANNELS; i++) {
         snd_pcm_hw_free(alsa_handle); // remove any previous configurations
         int local_response = snd_pcm_hw_params_any(alsa_handle, local_alsa_params);
         if (local_response == 0) {
