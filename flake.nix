@@ -2,7 +2,7 @@
   description = "dacquery -- query the capabilities of audio DACs and other USB devices";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
   };
 
   outputs =
@@ -45,6 +45,7 @@
               license = licenses.gpl2Only;
               mainProgram = "dacquery";
               platforms = platforms.linux;
+              maintainers = [ "shaver@off.net" ];
             };
           };
         }
